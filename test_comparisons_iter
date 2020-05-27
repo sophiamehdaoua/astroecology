@@ -12,7 +12,7 @@ Iter_lab = pd.Series(range(5000,43000,5000))
 
 #Function for formatting the data 
 def format(test, col, shape): 
-#this function can be used on any metric column of either test for plotting (x = iter, y = chosen column)
+#this function can be used on any eval metric column of either test for plotting (x = iter, y = chosen column)
     test['Iter'] = pd.to_numeric(test_K3['Iter'])
     test = test.sort_values(by=['Iter'])
     vals = test.iloc[:,col] 
