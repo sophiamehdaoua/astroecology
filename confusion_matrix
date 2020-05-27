@@ -27,7 +27,7 @@ sn.heatmap(cm, annot = True, fmt = 'd', annot_kws = {'verticalalignment':'center
 plt.ylim(2,-0.5)
 ax.set(xlabel='Truth')
 ax.collections[0].colorbar.ax.set_ylim(20000,44600) 
-#adjust ylim based off the lowest value (generally the FPs), so it's more obvious TN isn't included 
+#adjust ylim based off the lowest value, so it's more obvious TN isn't included 
 plt.text(0,-0.3, "Confusion Matrix : Dim 416", fontsize = 20) 
 plt.text(-0.3,1.1, 'Prediction', rotation = 90)
 plt.text(-0.1,1.55, 'N') 
