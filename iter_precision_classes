@@ -10,7 +10,7 @@ o_names = ['Weight', 'Iter', 'Precision', 'Recall', 'F1', 'TP', 'FP', 'FN', 'IoU
 Iter = pd.Series(range(1000,43000,1000))
 Iter_lab = pd.Series(range(5000,43000,5000))
 
-##Function for Precision #TP/(TP+FP)--> PPV
+##Function for Precision #TP/(TP+FP)--> PPV #any suggestions to make this shorter are welcome 
 def precision(test, rows): 
     test['Iter'] = pd.to_numeric(test['Iter'])
     test = test.sort_values(by=['Iter'])
