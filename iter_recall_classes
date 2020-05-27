@@ -1,4 +1,3 @@
-
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,7 +10,7 @@ o_names = ['Weight', 'Iter', 'Precision', 'Recall', 'F1', 'TP', 'FP', 'FN', 'IoU
 Iter = pd.Series(range(1000,43000,1000))
 Iter_lab = pd.Series(range(5000,43000,5000))
 
-##Function for Recall #TP/(TP+FN)-->TPR 
+##Function for Recall #TP/(TP+FN)-->TPR #any suggestions to make this shorter are welcome 
 def recall(test, rows): 
     test['Iter'] = pd.to_numeric(test['Iter'])
     test = test.sort_values(by=['Iter'])
