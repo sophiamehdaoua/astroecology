@@ -1,0 +1,42 @@
+"""
+Created on Fri May 29 09:28:19 2020
+
+@author: sm
+"""
+
+import os 
+import cv2
+import glob
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+#split data into subdirectories train/val/test 
+
+all_data = sorted(glob.glob("/home/sm/mad_data/most_data_png/**/*.png", recursive=True))
+#gives you a list of all the directories, if you don't want them in order just remove the sorted bit 
+
+#from sklearn.model_selection import train_test_split
+x_train, x_test= train_test_split(all_data, test_size=0.2) #random_state=1 (this shuffles the data) 
+x_train, x_val= train_test_split(x_train, test_size=0.25) #0.25*0.8 =0.2 
+#train = 0.6, test = o.2, val = 0.2
+
+#Read the data into new files (make the empty files before you do this)
+#Run each of these chunks seperately otherwise it gets confused
+i=0    
+for trn in x_train:
+    train = cv2.imread(trn, -1) # -1 = cv2.IMREAD_UNCHANGED
+    cv2.imwrite('/home/sm/mad_data/combined_data/train_new/frame_%00i.png' %i, train)
+    i += 1
+
+i=0    
+for tst in x_test:
+    test = cv2.imread(tst, -1) 
+    cv2.imwrite('/home/sm/mad_data/combined_data/test_new/frame_%00i.png' %i, test)
+    i += 1
+
+i=0    
+for vl in x_val:
+    val = cv2.imread(vl, -1) 
+    cv2.imwrite('/home/sm/mad_data/combined_data/val_new/frame_%00i.png' %i, val)
+    i += 1
