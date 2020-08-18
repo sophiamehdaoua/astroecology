@@ -3,6 +3,7 @@ Created on Fri May 29 09:28:19 2020
 
 @author: sm
 """
+#Sorry this isn't as pretty as JupyterLab 
 
 import os 
 import cv2
@@ -21,7 +22,7 @@ x_train, x_test= train_test_split(all_data, test_size=0.2) #random_state=1 (this
 x_train, x_val= train_test_split(x_train, test_size=0.25) #0.25*0.8 =0.2 
 #train = 0.6, test = o.2, val = 0.2
 
-#Read the data into new files (make the empty files before you do this)
+#Read the data into new files (make the empty files before you run this)
 #Run each of these chunks seperately otherwise it gets confused
 i=0    
 for trn in x_train:
