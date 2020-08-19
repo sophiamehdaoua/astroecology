@@ -18,7 +18,7 @@ all_data = sorted(glob.glob("/home/sm/mad_data/most_data_png/**/*.png", recursiv
 #gives you a list of all the directories, if you don't want them in order just remove the sorted bit 
 
 #from sklearn.model_selection import train_test_split
-x_train, x_test= train_test_split(all_data, test_size=0.2, shuffle = False) #random_state=1 (this shuffles the data) 
+x_train, x_test= train_test_split(all_data, test_size=0.2, shuffle = False) #random_state=1 
 x_train, x_val= train_test_split(x_train, test_size=0.25, shuffle = False) #0.25*0.8 =0.2 
 #train = 0.6, test = o.2, val = 0.2
 
