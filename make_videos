@@ -1,0 +1,29 @@
+import os 
+import cv2
+import glob
+import numpy as np
+import pandas as pd
+import matplotlib 
+import matplotlib as mpl 
+import matplotlib.cm as mpl_cm
+import matplotlib.pyplot as plt
+
+
+vid_1 = sorted(glob.glob("/home/sm/mad_data/potential_detections/vid_1/**/*.png", recursive=True))
+vid_2 = sorted(glob.glob("/home/sm/mad_data/potential_detections/vid_2/**/*.png", recursive=True))
+vid_3 = sorted(glob.glob("/home/sm/mad_data/potential_detections/vid_3/**/*.png", recursive=True))
+
+video_3 = []
+for img in vid_3:
+    n = cv2.imread(img, -1)
+    cmap = cv2.applyColorMap(n, cv2.COLORMAP_INFERNO)
+    height, width = n.shape
+    size = (width, height)
+    video_3.append(cmap)
+ 
+os.chdir('/home/sm/mad_data/')
+out = cv2.VideoWriter('vid_3.avi',cv2.VideoWriter_fourcc(*'MPNG'), 15, size)
+ 
+for i in range(len(video_3)):
+    out.write(video_3[i])
+out.release()
