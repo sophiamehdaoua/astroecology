@@ -1,0 +1,89 @@
+
+import os 
+import cv2
+import glob
+import numpy as np
+import pandas as pd
+import matplotlib 
+import matplotlib as mpl 
+import matplotlib.cm as mpl_cm
+import matplotlib.pyplot as plt
+
+
+#img
+img = cv2.imread('/home/sm/mad_data/potential_detections/andreba_1_1/frame_002191.png', -1)
+img_tiff = cv2.imread('/home/sm/mad_data/frame_002191.tiff', -1)
+#img_tiff *= 0.04 this converts the tiff images to a temperture scale, borrowed from augment_blobs.py
+#img_tiff -= 273
+
+plt.imshow(img, cmap = 'inferno') #cmap = 'plasma', 'magma'
+#cbr = plt.colorbar()
+#cbr.set_ticks(range(0,55,5))
+#cbr.set_label('Temperature (°C)', size=14)
+#crop = img[200:300, 200:300]
+#crop_2 = img[350:450, 300:400]
+#plt.imshow(crop, cmap = 'inferno')
+
+#view each quarter
+q1 = img[0:256,0:320]
+q2 = img[0:256,320:620]
+q3 = img[256:512,0:320]
+q4 = img[256:512, 320:640]
+plt.imshow(q1, cmap = 'inferno')
+#crp = q4[150:250, 0:100]
+
+#sharpening filters 
+kernel_3 = np.array([[-1,-1,-1], 
+                     [-1,9,-1],
+                     [-1,-1,-1]])
+
+kernel_5 = np.array([[-1,-1,-1,-1,-1],
+                     [-1,-1,-1,-1,-1],
+                     [-1,-1,25,-1,-1],
+                     [-1,-1,-1,-1,-1],
+                     [-1,-1,-1,-1,-1]])
+    
+kernel_7= np.array([[-1,-1,-1,-1,-1,-1,-1],
+                    [-1,-1,-1,-1,-1,-1,-1],
+                    [-1,-1,-1,-1,-1,-1,-1],
+                    [-1,-1,-1,49,-1,-1,-1],
+                    [-1,-1,-1,-1,-1,-1,-1],
+                    [-1,-1,-1,-1,-1,-1,-1],
+                    [-1,-1,-1,-1,-1,-1,-1]])
+
+#apply kernel filtering 
+sharpened = cv2.filter2D(img, -1, kernel_3) #med_image, #gauss_image
+plt.imshow(sharpened, cmap='inferno')
+#crop = sharpened[100:400, 0:300]
+#plt.imshow(crop, cmap='inferno')
+
+#Otsu thresholding 
+from skimage import io, filters
+threshold = filters.threshold_otsu(img)
+#threshold
+thresholded = img >= threshold 
+io.imshow(thresholded)
+io.show()
+
+#Thresholding-cv2
+#cv2.THRESH_BINARY,cv2.THRESH_BINARY_INV, cv2.THRESH_TRUNC,cv2.THRESH_TOZERO,cv2.THRESH_TOZERO_INV
+t, tbi = cv2.threshold(img,200,255,cv2.THRESH_BINARY)
+plt.imshow(tbi, cmap ='inferno')
+#crop = tbi[0:200, 0:400]
+#plt.imshow(crop, cmap = 'inferno')
+
+#Gaussian blur 
+gauss_image = cv2.GaussianBlur(img, (3, 3), 0) 
+plt.imshow(gauss_image, cmap = 'inferno')
+
+#Laplacian 
+#CV_8U - 8-bit unsigned integers ( 0..255 ), CV_8S - 8-bit signed integers ( -128..127 ), CV_16U - 16-bit unsigned integers ( 0..65535 ),
+#CV_16S - 16-bit signed integers ( -32768..32767 ), CV_32S - 32-bit signed integers ( -2147483648..2147483647 ),
+#CV_32F - 32-bit floating-point numbers ( -FLT_MAX..FLT_MAX, INF, NAN ), CV_64F - 64-bit floating-point numbers ( -DBL_MAX..DBL_MAX, INF, NAN )
+l_image = cv2.Laplacian(img,cv2.CV_8U) #med_image, #gauss_image
+plt.imshow(l_image, cmap='inferno')
+
+#median filter 
+med_image = cv2.medianBlur(img, 3) #3x3
+#crop = med_image[0:200, 150:350]
+plt.imshow(med_image, cmap = 'inferno')
