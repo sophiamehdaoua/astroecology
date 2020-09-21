@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug 18 16:26:33 2020
+
+@author: sm
+"""
+
+import glob
+import os
+import cv2 
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+surveys = sorted(glob.glob("/home/sm/mad_data/most_data_png/*/", recursive = True))
+radiometric = sorted(glob.glob("/home/sm/mad_data/most_data_png/**/*radiometric", recursive = True))
+for clean in radiometric:
+    os.mkdir(clean + '/clean') #make new directory inside all radiometric folders called clean
+
+#could probably wrap this all in a function but just quite happy its working for now  
+png_name = surveys[14] + '**/*.png'  #(0:14)
+frame_list = []
+for d in sorted(glob.glob(str(png_name), recursive = True)):
+    e = os.path.splitext(d)[0] #removes the files extenction (.png)
+    head, tail = os.path.split(e) #tail = frame names
+    frame_list.append(tail)
+
+tiff_name = surveys[14] + '**/*.tiff'
+tiff_clean = []
+tiff_files = []
+for g in sorted(glob.glob(str(tiff_name), recursive = True)):
+    h = os.path.splitext(g)[0] #removes the files extenction (.tiff)
+    radio, tiff = os.path.split(h)
+    if tiff in frame_list:
+        tiff_dir = radio + '/clean/' + tiff + '.tiff'
+        tiff_clean.append(tiff_dir)
+        real_files = radio + '/' + tiff + '.tiff'
+        tiff_files.append(real_files)
+
+for real in tiff_files:
+    rl = cv2.imread(real, -1)
+    
+for cln in tiff_clean:
+    cv2.imwrite(cln, rl)
+    
+   
