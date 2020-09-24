@@ -18,7 +18,7 @@ radiometric = sorted(glob.glob("/home/sm/mad_data/most_data_png/**/*radiometric"
 for clean in radiometric:
     os.mkdir(clean + '/clean') #make new directory inside all radiometric folders called clean
 
-#could probably wrap this all in a function but just quite happy its working for now  
+#could probably wrap this all in a function but just quite happy its working for now #(0:14) 
 png_name = surveys[14] + '**/*.png'  #(0:14)
 frame_list = []
 for d in sorted(glob.glob(str(png_name), recursive = True)):
