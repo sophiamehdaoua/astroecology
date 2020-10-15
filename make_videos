@@ -28,3 +28,9 @@ out = cv2.VideoWriter('vid_3.avi',cv2.VideoWriter_fourcc(*'MPNG'), 15, size)
 for i in range(len(video_3)):
     out.write(video_3[i])
 out.release()
+
+#Link to Videos 
+#Vid 1: https://drive.google.com/file/d/16JZdy3ucrhErQ3Dh-_4S4KqA9hJPjPLI/view?usp=sharing
+#Vid 2: https://drive.google.com/file/d/1qdT1fnM0zcTzOKwV1lhO1s0B1ZH-ZGm8/view?usp=sharing
+#Vid 3: https://drive.google.com/file/d/1i_XpKN8ITlsmfM7tb9pl-4mViTGo2hgA/view?usp=sharing
+
